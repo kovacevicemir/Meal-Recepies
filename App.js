@@ -3,7 +3,7 @@ import React,{useState} from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font'
 import {AppLoading} from 'expo'
-
+import { enableScreens } from 'react-native-screens'
 import MealsNavigator from './navigation/MealsNavigation'
 
 // npm install --save react-navigation-stack
@@ -12,6 +12,8 @@ import MealsNavigator from './navigation/MealsNavigation'
 // import { createBottomTabNavigator } from 'react-navigation-tabs';
 // npm install --save react-navigation-drawer
 // import { createDrawerNavigator } from 'react-navigation-drawer';
+
+enableScreens()
 
 const fetchFonts = () =>{
   Font.loadAsync({
