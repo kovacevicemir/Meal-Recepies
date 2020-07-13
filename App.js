@@ -4,6 +4,15 @@ import { StyleSheet, Text, View } from 'react-native';
 import * as Font from 'expo-font'
 import {AppLoading} from 'expo'
 
+import MealsNavigator from './navigation/MealsNavigation'
+
+// npm install --save react-navigation-stack
+// import { createStackNavigator } from 'react-navigation-stack';
+// npm install --save react-navigation-tabs
+// import { createBottomTabNavigator } from 'react-navigation-tabs';
+// npm install --save react-navigation-drawer
+// import { createDrawerNavigator } from 'react-navigation-drawer';
+
 const fetchFonts = () =>{
   Font.loadAsync({
     'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
@@ -15,21 +24,18 @@ export default function App() {
   const [fontLoaded, setfontLoaded] = useState(false)
   
   if(!fontLoaded){
-    return <AppLoading />
+    return <AppLoading startAsync={fetchFonts} onFinish={setfontLoaded(true)} />
   }
 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <MealsNavigator />
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'yellow',
     alignItems: 'center',
     justifyContent: 'center',
   },
