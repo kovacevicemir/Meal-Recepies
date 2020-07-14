@@ -15,12 +15,13 @@ import MealsNavigator from './navigation/MealsNavigation'
 
 enableScreens()
 
-const fetchFonts = () =>{
-  Font.loadAsync({
-    'open-sans': require('./assets/fonts/OpenSans-Regular.ttf'),
-    'open-sans-bold': require('./assets/fonts/OpenSans-Bold.ttf')
-  })
-}
+const fetchFonts = () => {
+  return Font.loadAsync({
+    "roboto-bold": require("./assets/fonts/Roboto-Bold.ttf"),
+    "open-sans": require("./assets/fonts/OpenSans-Regular.ttf"),
+    "open-sans-bold": require("./assets/fonts/OpenSans-Bold.ttf"),
+  });
+};
 
 export default function App() {
   const [fontLoaded, setfontLoaded] = useState(false)
