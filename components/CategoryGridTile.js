@@ -7,7 +7,6 @@ import {
   Platform,
   TouchableNativeFeedback,
 } from "react-native";
-import Colors from "../constants/Colors";
 
 const CategoryGridTile = (props) => {
   let TouchableCmp = TouchableOpacity;
