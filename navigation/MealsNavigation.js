@@ -1,15 +1,19 @@
-import { Platform } from "react-native";
+
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
-import { createAppContainer } from "react-navigation";
-import React from "react";
+import { createDrawerNavigator } from 'react-navigation-drawer';
 
+import React from "react";
+import { createAppContainer } from "react-navigation";
 import { Ionicons } from "@expo/vector-icons";
+import { Platform } from "react-native";
+import Colors from "../constants/Colors";
+
 import CategoriesScreen from "../screens/CaregoriesScreen";
 import CategoryMealsScreen from "../screens/CaregoryMealsScreen";
 import FavouritesScreen from "../screens/FavouritesScreen";
 import MealDetailScreen from "../screens/MealDetailScreen";
-import Colors from "../constants/Colors";
+import FiltersScreen from '../screens/FiltersScreen'
 
 //MealsNavigator is nested inside MealsFavTabNavigator down below.
 const MealsNavigator = createStackNavigator(
@@ -90,4 +94,15 @@ const MealsFavTabNavigator = createBottomTabNavigator(
   }
 );
 
-export default createAppContainer(MealsFavTabNavigator);
+//no reason for this navigator just to have header
+const FiltersNavigator = createStackNavigator({
+  Filters:FiltersScreen
+})
+
+const MainNavigator = createDrawerNavigator({
+  MealsFavs: MealsFavTabNavigator,
+  Filters: FiltersNavigator
+})
+
+//Explanation Main navigator -> have MealsFavTabNavigator -> which have MealsNavigator nested...
+export default createAppContainer(MainNavigator);
