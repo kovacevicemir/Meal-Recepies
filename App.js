@@ -4,6 +4,15 @@ import * as Font from 'expo-font'
 import {AppLoading} from 'expo'
 import { enableScreens } from 'react-native-screens'
 import MealsNavigator from './navigation/MealsNavigation'
+import {createStore, combineReducers} from 'redux'
+import mealsReducer from './store/reducers/meals'
+import { Provider } from 'react-redux'
+
+const rootReducer = combineReducers({
+  meals: mealsReducer
+})
+
+const store = createStore(rootReducer)
 
 // npm install --save react-navigation-stack
 // import { createStackNavigator } from 'react-navigation-stack';
@@ -30,7 +39,9 @@ export default function App() {
   }
 
   return (
-    <MealsNavigator />
+    <Provider store={store}>
+      <MealsNavigator />
+    </Provider>
   );
 }
 
