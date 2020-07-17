@@ -1,7 +1,6 @@
-//This is file with all logic such as mark meal as favourite (REDUCER)
+//This is file with all logic such as mark meal as favourite
 
 //MEALS REDUCERS
-
 import {MEALS} from '../../data/dummy-data'
 
 const initialState = {

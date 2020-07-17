@@ -1,0 +1,33 @@
+1. install redux, react-redux
+2. create folders store -> reducers/actions
+3. create meals reducer (or user reducer, or item reducer...)
+	reducers/meals.js
+	
+	const mealsReducer = (state=initialState, action) =>{
+		return state
+	}
+	
+	_initialState_ is some data for example: [user1,user2]
+
+4. Setup redux store in App.js (or whichever root file)
+	import {createStore, combineReducers} from redux
+	
+	const store = createStore(+combinedReducers+)
+	
+5. Provide store to whole application
+	import {provider} from 'react-redux'
+
+	<Provider store={store}>--rootComponent--<Provider/>
+	   _provider takes store property_
+
+SO FAR THIS GIVES AS ACCESS TO STORE IN ANY: SCREEN, COMPONENT ETC.
+
+6. USE/GET Store in components:
+
+	import {useSelector /or/ connect} from react-redux
+		_useSelector_ is for hooks only...
+
+	const test = useSelector(state=>state.nameOftheReducer..)
+        _useSelector is executed automatically by react-redux_
+	_it returns any data/state we wants from it_
+	_state is refering to combinedReducers all we have there_
