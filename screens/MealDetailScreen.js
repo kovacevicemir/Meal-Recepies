@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {useSelector} from 'react-redux'
 import {
   View,
@@ -25,6 +25,12 @@ const MealDetailScreen = (props) => {
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
+  //To prevent infinite loop
+  useEffect(()=>{
+    props.navigation.setParams({mealTitle:selectedMeal.title})
+  },[selectedMeal])
+
+
   return (
     <ScrollView>
       <Image source={{ uri: selectedMeal.imageUrl }} style={styles.image} />
@@ -46,12 +52,12 @@ const MealDetailScreen = (props) => {
 };
 
 MealDetailScreen.navigationOptions = (navigationData) => {
-  const mealId = navigationData.navigation.getParam("mealId");
-  const MEALS = useSelector(state => state.meals.meals)
 
-  const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+  //communicate with MealDetailScreen component
+  const title = navigationData.navigation.getParam('mealTitle')
+ 
   return {
-    headerTitle: selectedMeal.title,
+    headerTitle: title ? title : 'loading',
     headerRight: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item

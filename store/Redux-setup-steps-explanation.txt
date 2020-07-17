@@ -31,6 +31,3 @@ SO FAR THIS GIVES AS ACCESS TO STORE IN ANY: SCREEN, COMPONENT ETC.
         _useSelector is executed automatically by react-redux_
 	_it returns any data/state we wants from it_
 	_state is refering to combinedReducers all we have there_
-
-7. CHANGING DATA (Dispatching actions & Reducer Logic)
-	
