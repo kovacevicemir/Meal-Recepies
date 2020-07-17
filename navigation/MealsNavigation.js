@@ -1,7 +1,6 @@
-
 import { createStackNavigator } from "react-navigation-stack";
 import { createBottomTabNavigator } from "react-navigation-tabs";
-import { createDrawerNavigator } from 'react-navigation-drawer';
+import { createDrawerNavigator } from "react-navigation-drawer";
 
 import React from "react";
 import { createAppContainer } from "react-navigation";
@@ -13,7 +12,7 @@ import CategoriesScreen from "../screens/CaregoriesScreen";
 import CategoryMealsScreen from "../screens/CaregoryMealsScreen";
 import FavouritesScreen from "../screens/FavouritesScreen";
 import MealDetailScreen from "../screens/MealDetailScreen";
-import FiltersScreen from '../screens/FiltersScreen'
+import FiltersScreen from "../screens/FiltersScreen";
 
 //MealsNavigator is nested inside MealsFavTabNavigator down below.
 const MealsNavigator = createStackNavigator(
@@ -90,19 +89,39 @@ const MealsFavTabNavigator = createBottomTabNavigator(
     //Second argument
     tabBarOptions: {
       activeTintColor: Colors.accentColor,
+      style:{
+        backgroundColor: Colors.primaryColor
+      }
     },
   }
 );
 
 //no reason for this navigator just to have header
-const FiltersNavigator = createStackNavigator({
-  Filters:FiltersScreen
-})
+const FiltersNavigator = createStackNavigator(
+  {
+    Filters: FiltersScreen,
+  },
+  {
+    defaultNavigationOptions: {
+      headerStyle: {
+        backgroundColor: Platform.OS === "android" ? Colors.primaryColor : "",
+      },
+      headerTintColor:
+        Platform.OS === "android" ? "white" : Colors.primaryColor,
+      headerTitle: "A Screen",
+    },
+  }
+);
 
 const MainNavigator = createDrawerNavigator({
-  MealsFavs: MealsFavTabNavigator,
-  Filters: FiltersNavigator
-})
+  MealsFavs: {
+    screen: MealsFavTabNavigator,
+    navigationOptions: {
+      drawerLabel: "Meals",
+    },
+  },
+  Filters: FiltersNavigator,
+});
 
 //Explanation Main navigator -> have MealsFavTabNavigator -> which have MealsNavigator nested...
 export default createAppContainer(MainNavigator);
