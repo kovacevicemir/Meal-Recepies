@@ -17,6 +17,9 @@ const MealDetailScreen = (props) => {
   const mealId = props.navigation.getParam("mealId");
 
   const MEALS = useSelector((state) => state.meals.meals);
+  const curentMealIsFavourite = useSelector((state) =>
+    state.meals.favouriteMeals.some((meal) => meal.id === mealId)
+  );
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
@@ -25,13 +28,17 @@ const MealDetailScreen = (props) => {
 
   const toggleFavouriteHandler = useCallback(() => {
     dispatch(toggleFavourite(mealId));
-  },[dispatch, mealId]);
+  }, [dispatch, mealId]);
 
   //To prevent infinite loop
   useEffect(() => {
     props.navigation.setParams({ mealTitle: selectedMeal.title });
     props.navigation.setParams({ toggleFav: toggleFavouriteHandler });
   }, [selectedMeal, toggleFavouriteHandler]);
+
+  useEffect(()=>{
+    props.navigation.setParams({isFav:curentMealIsFavourite})
+  },[curentMealIsFavourite])
 
   //Explanation:
   //I am creating toggleFav. function that dispatch action...
@@ -41,7 +48,6 @@ const MealDetailScreen = (props) => {
   //Also i am using useEffect to prevent inf. loop because if u change nav it rerenders
   //Also using useCallBack to prevent inf loop as useEffect watching toggleFav change
   //So with useCallBack we are preventing toggleFav. to be recreated and avoiding inf.loop
-
 
   return (
     <ScrollView>
@@ -67,6 +73,7 @@ MealDetailScreen.navigationOptions = (navigationData) => {
   //communicate with MealDetailScreen component
   const title = navigationData.navigation.getParam("mealTitle");
   const toggleFav = navigationData.navigation.getParam("toggleFav");
+  const isFav = navigationData.navigation.getParam("isFav");
 
   return {
     headerTitle: title ? title : "loading",
@@ -74,9 +81,9 @@ MealDetailScreen.navigationOptions = (navigationData) => {
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
           title="Favourite"
-          iconName="ios-star"
+          iconName={isFav ? "ios-star" : "ios-star-outline"}
           onPress={() => {
-            toggleFav()
+            toggleFav();
           }}
         />
       </HeaderButtons>
